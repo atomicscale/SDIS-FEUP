@@ -12,6 +12,9 @@ public class Client {
 		DatagramSocket socket = new DatagramSocket();
 		byte[] sbuf = args[1].getBytes();
 		InetAddress address = InetAddress.getByName(args[0]);
+		System.out.println(address);
+		System.out.println(sbuf);
+		
 		DatagramPacket packet = new DatagramPacket(sbuf, sbuf.length, address, 9999);
 		socket.send(packet);
 	

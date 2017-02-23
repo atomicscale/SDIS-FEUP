@@ -2,24 +2,42 @@ import java.io.IOException;
 import java.net.*;
 
 public class Server {
+	private DatagramSocket socket;
+	private int SIZE = 1024;
 	
 	public static void main(String[] args) throws IOException{
 		if (args.length != 2) {
 			System.out.println("Usage: java Echo <hostname> <string to echo>");
 		return;
 		}
+	
 
-	DatagramSocket socket = new DatagramSocket();
-	byte[] buffer = args[1].getBytes();
-	DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-	System.out.println("Receiving data...");
-	socket.receive(packet);
+	Server server=new Server(args[0]);	
+	server.Ready();
 
-	String received = new String(packet.getData());
-	System.out.println("Echoed Message: " + received);
-	socket.close();
+
+
 	
 	}
+	
+	public void Ready() throws IOException{
+
+		DatagramPacket packet = new DatagramPacket(new byte[SIZE], SIZE);
+		System.out.println("Receiving data...");
+		socket.receive(packet);
+		
+		String received = new String(packet.getData());
+		System.out.println("Echoed Message: " + received);
+		socket.close();
+	};
+	
+	
+	public Server(String port) throws SocketException{
+		System.out.println(port);
+		this.socket=new DatagramSocket(Integer.parseInt(port));
+
+
+	    }
 }
 
 
