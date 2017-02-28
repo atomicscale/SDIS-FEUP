@@ -6,8 +6,8 @@ public class Server {
 	private int SIZE = 1024;
 	
 	public static void main(String[] args) throws IOException{
-		if (args.length != 2) {
-			System.out.println("Usage: java Echo <hostname> <string to echo>");
+		if (args.length != 1) {
+			System.out.println("Usage: java Server <port_number>");
 		return;
 		}
 	
