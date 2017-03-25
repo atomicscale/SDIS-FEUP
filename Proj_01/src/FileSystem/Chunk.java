@@ -1,6 +1,12 @@
 package FileSystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Chunk {
+    private File file;
     private String fileId;
     private int chunkNo;
     private int replicationDeg;
@@ -25,10 +31,6 @@ public class Chunk {
         return replicationDeg;
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
     public void incReplicationDeg() {
         replicationDeg = replicationDeg + 1;
     }
@@ -37,4 +39,22 @@ public class Chunk {
         replicationDeg = replicationDeg - 1;
     }
 
+    public byte[] getData(){
+        try {
+           file = new File("myFile");
+            FileInputStream is = new FileInputStream(file);
+            byte[] data = new byte[CHUNK_MAX_SIZE];
+
+            is.read(data);
+
+            is.close();
+
+        } catch (FileNotFoundException fnfE) {
+            // file not found, handle case
+        } catch (IOException ioE) {
+            // problem reading, handle case
+        }
+
+        return data;
+    }
 }
