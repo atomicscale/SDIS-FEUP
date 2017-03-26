@@ -33,7 +33,12 @@ public class TestApp{
     			break;	
     		case "RECLAIM":
     			recievedData[0] = args[2];	
-    			break;   			
+    			break;  
+    		case "STORE":
+    			recievedData[0] = args[2];	
+    			break;    
+    		default:
+    			break;
     		} 		
     	}
     }
