@@ -1,6 +1,11 @@
 package Client;
 
 import java.net.UnknownHostException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import server.IntRemote;
+
 
 public class TestApp{
 
@@ -17,6 +22,17 @@ public class TestApp{
     	}
     	else{
     		System.out.println("Working...\n");
+            String host = "example.hello.Server";
+    		try{
+    			Registry registry = LocateRegistry.getRegistry(host);
+    			IntRemote stub = (IntRemote) registry.lookup("Hello");
+    		    String response = stub.sayHello();
+    		    System.out.println("response: " + response);
+        } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+    		
     		
     		String Protocol = args[1];
     		String[] recievedData = new String[args.length];

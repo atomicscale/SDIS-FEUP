@@ -10,16 +10,16 @@ public class Channel {
 	private int port;
 	private InetAddress address;
 	private MulticastSocket socket;
-	
-	public Channel(int port, InetAddress adress){
-		try{
+
+	public Channel(int port, InetAddress adress) {
+		try {
 			this.address = address;
 			this.port = port;
 			socket = new MulticastSocket(port);
-			socket.joinGroup(address);			
-		}
-		catch(IOException e){
+			socket.joinGroup(address);
+		} catch (IOException e) {
 		}
 
 	}
-	}
+}
+
