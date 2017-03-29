@@ -21,8 +21,8 @@ public class Server implements IntRemote {
             IntRemote stub = (IntRemote) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.createRegistry(1111);
-            registry.bind("Hello", stub);
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.rebind("Hello", stub);
 
             System.err.println("Server ready");
         } catch (Exception e) {

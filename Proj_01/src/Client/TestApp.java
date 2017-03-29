@@ -24,7 +24,7 @@ public class TestApp{
     		System.out.println("Working...\n");
             String host = "example.hello.Server";
     		try{
-    			Registry registry = LocateRegistry.getRegistry(host);
+    			Registry registry = LocateRegistry.getRegistry();
     			IntRemote stub = (IntRemote) registry.lookup("Hello");
     		    String response = stub.sayHello();
     		    System.out.println("response: " + response);
