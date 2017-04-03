@@ -1,6 +1,7 @@
 package Client;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -8,49 +9,16 @@ import java.rmi.registry.Registry;
 import server.IntRemote;
 
 public class TestApp {
+	
+	private static IntRemote stub;
 
-	public static void main(String[] args) throws UnknownHostException {
-
+	public static void main(String[] args) throws NumberFormatException, IOException {
 		if(checkMethod(args)){
+			System.out.println("where:");
 			startPeer(args[0]);
+			System.out.println("where2:");
 			runPeer(args);
 		}
-		
-/*
-		System.out.println("Working...\n");
-		String host = "example.hello.Server";
-		try {
-			Registry registry = LocateRegistry.getRegistry();
-			IntRemote stub = (IntRemote) registry.lookup("Hello");
-			String response = stub.sayHello();
-			System.out.println("response: " + response);
-		} catch (Exception e) {
-			System.err.println("Client exception: " + e.toString());
-			e.printStackTrace();
-
-			String Protocol = args[1];
-			String[] recievedData = new String[args.length];
-			switch (Protocol) {
-			case "BACKUP":
-				recievedData[0] = args[2];
-				recievedData[1] = args[3];
-				break;
-			case "RESTORE":
-				// recievedData[0] = args[2];
-				break;
-			case "DELETE":
-				recievedData[0] = args[2];
-				break;
-			case "RECLAIM":
-				recievedData[0] = args[2];
-				break;
-			case "STORE":
-				recievedData[0] = args[2];
-				break;
-			default:
-				break;
-			}
-		}*/
 	}
 
 	private static boolean checkMethod(String args[]) {
@@ -112,18 +80,27 @@ public class TestApp {
 		}
 	}
 	
-	private static void runPeer(String args[]) {
+	private static void runPeer(String args[]) throws NumberFormatException, IOException {
 		String Protocol = args[1];
 		switch (Protocol.toLowerCase()) {
+		//this is not well done eu tenho que arranjar uma maneira de verificar os args uma so vez aqui e no peer
 		case "backup":
+			File f = new File(args[2]);
+			stub.backup(f,Integer.parseInt(args[3]));
 			break;
 		case "restore":
-			break;
+			File r = new File(args[2]);
+			stub.restore(r);
+			break;	
 		case "delete":
+			File d = new File(args[2]);
+			stub.restore(d);
 			break;
 		case "reclaim":
+			stub.reclaim(Integer.parseInt(args[2]));
 			break;
 		case "state":
+			stub.state();
 			break;
 		default:
 			break;
