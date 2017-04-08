@@ -39,17 +39,21 @@ public class Server implements IntRemote {
     
     
     public static void main(String args[]) {
-        
+        if (args.length != 2){
+        	   System.err.println("Invalid server invocation");
+        	return;
+        }
         try {
             Server obj = new Server();
-            IntRemote stub = (IntRemote) UnicastRemoteObject.exportObject(obj, 0);
+            IntRemote intServer = (IntRemote) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
-            Registry registry = LocateRegistry.createRegistry(1099);
+            Registry registry = LocateRegistry.createRegistry(Integer.parseInt(args[1]));
+            registry.rebind(args[1],intServer);
             //Should implement validation again here maybe!??
-            cast = args[1];
+          //  cast = args[1];
             
-            registry.rebind(cast, stub);
+          //  registry.rebind(cast, intServer);
 
             System.err.println("Server ready");
         } catch (Exception e) {

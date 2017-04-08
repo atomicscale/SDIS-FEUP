@@ -14,9 +14,7 @@ public class TestApp {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		if(checkMethod(args)){
-			System.out.println("where:");
 			startPeer(args[0]);
-			System.out.println("where2:");
 			runPeer(args);
 		}
 	}
