@@ -6,16 +6,16 @@ import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-import server.IntRemote;
+import server.IntServer;
 
 public class TestApp {
 	
-	private static IntRemote stub;
+	private static IntServer server;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		if(checkMethod(args)){
 			startPeer(args[0]);
-			runPeer(args);
+			runProtocol(args);
 		}
 	}
 
@@ -35,9 +35,10 @@ public class TestApp {
 			switch (args[1].toLowerCase()) {
 			case "backup":
 				File file = new File(args[2]);
-				if (!file.exists() || file.isDirectory() || argsize != 4) {
+				//removi temporariamente a verificaçao
+			/*	if (!file.exists() || file.isDirectory() || argsize != 4) {
 					return false;
-				} else
+				} else*/
 					return true;
 			case "restore":
 				if (argsize != 3) {
@@ -69,8 +70,8 @@ public class TestApp {
 	private static void startPeer(String lookup) {
 		try {
 			Registry registry = LocateRegistry.getRegistry();
-			IntRemote stub = (IntRemote) registry.lookup(lookup);
-			String awnser = stub.sayHello(); //this is for testing
+			server = (IntServer) registry.lookup(lookup);
+			String awnser = server.sayHello(); //this is for testing
 			System.out.println("Awnser: " + awnser);//this is for testing
 		} catch (Exception e) {
 			System.err.println("Client exception: " + e.toString());
@@ -78,27 +79,27 @@ public class TestApp {
 		}
 	}
 	
-	private static void runPeer(String args[]) throws NumberFormatException, IOException {
+	private static void runProtocol(String args[]) throws NumberFormatException, IOException {
 		String Protocol = args[1];
 		switch (Protocol.toLowerCase()) {
 		//this is not well done eu tenho que arranjar uma maneira de verificar os args uma so vez aqui e no peer
 		case "backup":
 			File f = new File(args[2]);
-			stub.backup(f,Integer.parseInt(args[3]));
+			server.backup(f,Integer.parseInt(args[3]));
 			break;
 		case "restore":
 			File r = new File(args[2]);
-			stub.restore(r);
+			server.restore(r);
 			break;	
 		case "delete":
 			File d = new File(args[2]);
-			stub.restore(d);
+			server.delete(d);
 			break;
 		case "reclaim":
-			stub.reclaim(Integer.parseInt(args[2]));
+			server.reclaim(Integer.parseInt(args[2]));
 			break;
 		case "state":
-			stub.state();
+			server.state();
 			break;
 		default:
 			break;

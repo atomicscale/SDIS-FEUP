@@ -6,7 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class Backup{
+public class Backup implements Runnable{
 
         private File file;
         private int replication;
@@ -22,4 +22,9 @@ public class Backup{
         public void PutChunk(){
 
         }
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			System.out.println("hello");
+		}
 }
