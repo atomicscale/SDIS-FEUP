@@ -42,11 +42,13 @@ public class Server implements IntServer {
     
     public void backup(File file, int degree) throws IOException{
       	System.out.println("Backup Started");
-      	new Thread (new Backup(file, degree)).start();
+      	new Thread (new InitiatorPeer(this, file , degree)).start();
     }
+    
     public void restore(File file) throws IOException{
     	System.out.println("Restore Started");
     }
+    
     public void delete(File file) throws IOException{
     	
     }
@@ -111,5 +113,18 @@ public class Server implements IntServer {
     	
     	bc = new BackupChannel(bcPort,bcAddress, this);
     	new Thread(bc).start();
+    };
+    
+    
+    public BackupChannel getBackup(){
+    	return bc;
+    };
+    
+    public RestoreChannel getRestore(){
+    	return rc;
+    };
+    
+    public ControlChannel getControl(){
+    	return cc;
     };
 }

@@ -35,8 +35,13 @@ public class Channel implements Runnable{
 		
 	}
 	
-	public void sendData(Message message){
-		DatagramPacket packet = new DatagramPacket(null, port, address, port);
+	public void sendData(){
+		String str = "helloHai";
+		System.out.println("In Sned Data");
+		System.out.println(address);
+		System.out.println(port);
+		byte[] b = str.getBytes();
+		DatagramPacket packet = new DatagramPacket(b, b.length, address, port);
 		try{
 			socket.send(packet);
 		} catch(IOException e){

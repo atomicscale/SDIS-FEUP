@@ -20,11 +20,12 @@ public class BackupChannel extends Channel {
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
 				socket.receive(packet);
+				System.out.println(new String(packet.getData()));
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-			new Thread (new Backup(null, port)).start();
+			new Thread(new Backup(packet,server)).start();
 		}
 		
 	}

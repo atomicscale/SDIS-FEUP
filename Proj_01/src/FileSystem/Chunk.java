@@ -1,8 +1,5 @@
 package FileSystem;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 public class Chunk {
     private String fileId;
     private int chunkNo;
@@ -14,16 +11,6 @@ public class Chunk {
         this.chunkNo = chunkNo;
         this.replicationDeg = replicationDeg;
         this.data = data;
-    }
-
-    public Chunk (int chunkNo, int size){
-        this.data = new byte[size];
-        this.chunkNo = chunkNo;
-    }
-
-    public Chunk (int chunkNo, byte[] data){
-        this.data = data;
-        this.chunkNo = chunkNo;
     }
 
     public String getFileId() {
@@ -47,19 +34,6 @@ public class Chunk {
     }
 
     public byte[] getData(){ return data;}
-
-    public void saveChunk(String fileName){
-
-        try {
-            FileOutputStream os = new FileOutputStream("ChunkFolder/" + fileName + "." + chunkNo);
-            os.write(data);
-
-            os.close();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
 
 }

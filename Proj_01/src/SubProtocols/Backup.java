@@ -1,23 +1,32 @@
 package SubProtocols;
 
 import java.io.File;
+import java.net.DatagramPacket;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import server.Server;
+
 
 public class Backup implements Runnable{
 
-        private File file;
-        private int replication;
+        private  DatagramPacket packet;
+        
+        private Server server;
 
-        public Backup(File f, int replicationDeg){
-          file = f;
-          replication = replicationDeg;
+        public Backup(DatagramPacket packet, Server server){
+        	this.server = server;
+        	this.packet = packet;
         }
-        public int getReplication(){
-            return replication;
+        public DatagramPacket getPacket(){
+            return this.packet;
         }
+        
+        public Server getServer(){
+            return this.server;
+        }
+
 
         public void PutChunk(){
 
@@ -25,6 +34,5 @@ public class Backup implements Runnable{
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			System.out.println("hello");
 		}
 }
