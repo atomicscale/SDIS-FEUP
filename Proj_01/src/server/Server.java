@@ -2,7 +2,7 @@ package server;
 
 import channels.*;
 import filesManager.Manager;
-import subProtocols.Backup;
+import subprotocols.Backup;
 
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;

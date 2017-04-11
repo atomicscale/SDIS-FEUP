@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 import message.Message;
 import server.Server;
-import subProtocols.Backup;
+import subprotocols.Backup;
 
 public class BackupChannel extends Channel {
 	private byte[] buffer = new byte[65000];

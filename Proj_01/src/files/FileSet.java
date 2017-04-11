@@ -24,7 +24,7 @@ public class FileSet {
     public float fileSize;
     private String version = "1.0";
     private String owner;
-    private int chunkID;
+    private int chunkID = 0;
     private long lastModified;
     private int repDegree;
     byte[] buffer = new byte[64000];

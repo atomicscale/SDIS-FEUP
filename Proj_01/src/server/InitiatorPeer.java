@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import files.Chunk;
 import files.FileSet;
@@ -17,7 +19,10 @@ public class InitiatorPeer implements Runnable {
 	private int currReplication = 0;
 
 	private byte[] buffer = new byte[64000];
-	
+
+	private Vector<Chunk> chunks = new Vector<Chunk>();
+	//private ArrayList<byte[]> chunks = new ArrayList <byte[]>();
+
 	private Server server;
 	private String filePath;
 	private int replicationDegree;
@@ -58,13 +63,30 @@ public class InitiatorPeer implements Runnable {
 			FileSet fs = new FileSet(f, replicationDegree);
 
 			try (BufferedInputStream bufferIn = new BufferedInputStream(new FileInputStream(f))) {
-				
-				int remainder = 0;
-				while((remainder = bufferIn.read(buffer)) > 0){
-					byte[] chunk = Arrays.copyOfRange(buffer, 0, remainder);
-					sendChunk(fs.getReplicationDegree(), fs.getFileID(),server.returnPeerID(), fs.getChunkID(), chunk, remainder);
-					fs.incChunkID();
-				}; 
+
+
+				int byteSize;
+				int fileavailable = bufferIn.available();
+				for(int i= 0; fileavailable > 0; i++ ) {
+					if (fileavailable > Message.CHUNK_MAX_SIZE)
+						byteSize = Message.CHUNK_MAX_SIZE;
+					else
+						byteSize = fileavailable;
+
+					Chunk chunk = new Chunk(i, byteSize);
+					chunks.add(chunk);
+
+					bufferIn.read(chunk.getData());
+
+					for (int j = 0; j < chunks.size(); j++) {
+						sendChunk(fs.getReplicationDegree(), fs.getFileID(), server.returnPeerID(), fs.getChunkID(), chunks.get(j).getData(), 0);
+						fs.incChunkID();
+					}
+
+					fileavailable = bufferIn.available();
+				}
+
+
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

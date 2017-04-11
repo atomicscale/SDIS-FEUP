@@ -5,7 +5,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 
 import server.Server;
-import subProtocols.Backup;
+import subprotocols.Backup;
 
 public class RestoreChannel extends Channel {
 	private byte[] buffer = new byte[65000];
