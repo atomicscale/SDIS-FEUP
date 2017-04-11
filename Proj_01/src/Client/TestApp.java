@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,10 +82,9 @@ public class TestApp {
 	private static void runProtocol(String args[]) throws NumberFormatException, IOException {
 		String Protocol = args[1];
 		switch (Protocol.toLowerCase()) {
-		//this is not well done eu tenho que arranjar uma maneira de verificar os args uma so vez aqui e no peer
+
 		case "backup":
-			File f = new File(args[2]);
-			server.backup(f,Integer.parseInt(args[3]));
+			server.backup(args[2],Integer.parseInt(args[3]));
 			break;
 		case "restore":
 			File r = new File(args[2]);

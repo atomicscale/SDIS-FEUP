@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
-import SubProtocols.Backup;
+import message.Message;
 import server.Server;
+import subProtocols.Backup;
 
 public class BackupChannel extends Channel {
 	private byte[] buffer = new byte[65000];
@@ -21,11 +22,18 @@ public class BackupChannel extends Channel {
 			try {
 				socket.receive(packet);
 				System.out.println(new String(packet.getData()));
+				
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-			new Thread(new Backup(packet,server)).start();
+			Message mR= new Message(packet);
+		/*	if(mR.returnSenderID().equals(server.returnPeerID())){
+				System.out.println("sameID");
+			}
+			else{*/
+				new Thread(new Backup(packet,server)).start();
+		//	}
 		}
 		
 	}

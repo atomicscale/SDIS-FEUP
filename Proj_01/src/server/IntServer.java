@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 public interface IntServer extends Remote {
 	String sayHello() throws RemoteException;
 
-	void backup(File file, int degree) throws IOException;
+	void backup(String file, int degree) throws IOException;
 
 	void restore(File file) throws IOException;
 

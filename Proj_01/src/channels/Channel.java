@@ -2,7 +2,7 @@ package channels;
 
 import java.net.MulticastSocket;
 
-import Message.Message;
+import message.Message;
 import server.Server;
 
 import java.net.DatagramPacket;
@@ -35,12 +35,7 @@ public class Channel implements Runnable{
 		
 	}
 	
-	public void sendData(){
-		String str = "helloHai";
-		System.out.println("In Sned Data");
-		System.out.println(address);
-		System.out.println(port);
-		byte[] b = str.getBytes();
+	public void sendData(byte[] b){
 		DatagramPacket packet = new DatagramPacket(b, b.length, address, port);
 		try{
 			socket.send(packet);

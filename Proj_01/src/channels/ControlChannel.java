@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
-import SubProtocols.Backup;
 import server.Server;
+import subProtocols.Backup;
 
 public class ControlChannel extends Channel {
 	byte[] buffer = new byte[65000];

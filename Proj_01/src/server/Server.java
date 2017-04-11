@@ -1,6 +1,8 @@
 package server;
 
 import channels.*;
+import filesManager.Manager;
+import subProtocols.Backup;
 
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
@@ -10,8 +12,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
-import SubProtocols.Backup;
         
 public class Server implements IntServer {
     
@@ -33,14 +33,24 @@ public class Server implements IntServer {
 	private static InetAddress rcAddress;
 	private static InetAddress bcAddress;
 	
+	private Manager manager;
+
 	
-    public Server() {}
+    public Server() {
+    	
+    	manager = new Manager();
+
+    }
 
     public String sayHello() {
         return "Hello, world!";
     }
     
-    public void backup(File file, int degree) throws IOException{
+    public String returnPeerID() {
+        return peerID;
+    }
+    
+    public void backup(String file, int degree) throws IOException{
       	System.out.println("Backup Started");
       	new Thread (new InitiatorPeer(this, file , degree)).start();
     }
@@ -127,4 +137,9 @@ public class Server implements IntServer {
     public ControlChannel getControl(){
     	return cc;
     };
+    
+    public Manager returnManager(){
+    	return manager;
+    }
+    
 }

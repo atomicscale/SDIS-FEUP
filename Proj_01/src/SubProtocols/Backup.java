@@ -1,13 +1,14 @@
-package SubProtocols;
+package subProtocols;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.net.DatagramPacket;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import message.Message;
 import server.Server;
-
 
 public class Backup implements Runnable{
 
@@ -27,12 +28,36 @@ public class Backup implements Runnable{
             return this.server;
         }
 
-
-        public void PutChunk(){
-
+        public boolean SaveChunk(byte[]content,String chunkID,String folder){
+        	int foo = Integer.parseInt(chunkID);
+        	
+        	File newFile = new File(folder,String.format("%06d", foo));
+        	try {
+        		FileOutputStream out = new FileOutputStream(newFile);
+        		out.write(content, 0, content.length);
+        		out.close();
+        	} catch (Exception e) {
+        		System.err.println("Error: Writting File " + e.getMessage());
+        		return false;
+        	}
+        	return true;
         }
+        
+        public void PutChunk(){
+        	System.out.println("I am Storing");
+        }
+        
+        public void HandleMessage(){
+        	Message m = new Message(this.packet);
+        	byte[] content = m.getBody();
+        	String chunkID = m.returnChunkNo();
+        	String folder = "chunks";
+        	SaveChunk(content,chunkID,folder);
+        }
+        
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+			HandleMessage();
+			PutChunk();
 		}
 }
