@@ -59,8 +59,8 @@ public class Server implements IntServer {
     	System.out.println("Restore Started");
     }
     
-    public void delete(File file) throws IOException{
-    	
+    public void delete(String file) throws IOException{
+    	new Thread(new InitiatorDelete(this, file));
     }
     
     public void reclaim(int space) throws IOException{
@@ -141,5 +141,11 @@ public class Server implements IntServer {
     public Manager returnManager(){
     	return manager;
     }
+
+	@Override
+	public void delete(File file) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
