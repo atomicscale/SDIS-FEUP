@@ -49,7 +49,8 @@ public class Backup implements Runnable{
         
         public void HandleMessage(){
         	Message m = new Message(this.packet);
-        	byte[] content = m.getBody();
+        	byte[] content = new byte[64000];
+			content=m.getBody();
         	String chunkID = m.returnChunkNo();
         	String folder = "chunks";
         	SaveChunk(content,chunkID,folder);

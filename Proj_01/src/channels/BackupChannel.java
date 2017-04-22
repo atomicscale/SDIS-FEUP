@@ -21,7 +21,7 @@ public class BackupChannel extends Channel {
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
 				socket.receive(packet);
-				System.out.println(new String(packet.getData()));
+				//System.out.println(new String(packet.getData()));
 				
 			}
 			catch (IOException e) {

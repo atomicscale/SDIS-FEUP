@@ -21,7 +21,6 @@ public class InitiatorPeer implements Runnable {
 	private byte[] buffer = new byte[64000];
 
 	private Vector<Chunk> chunks = new Vector<Chunk>();
-	//private ArrayList<byte[]> chunks = new ArrayList <byte[]>();
 
 	private Server server;
 	private String filePath;
@@ -46,7 +45,7 @@ public class InitiatorPeer implements Runnable {
 		else{
 			if(true){
 				System.out.println("chunk not null");
-				startChunk();
+				startFile();
 			}
 		}
 		
@@ -62,11 +61,10 @@ public class InitiatorPeer implements Runnable {
 			File f = new File(filePath);
 			FileSet fs = new FileSet(f, replicationDegree);
 
-			try (BufferedInputStream bufferIn = new BufferedInputStream(new FileInputStream(f))) {
-
+			try (FileInputStream file = new FileInputStream(f)) {
 
 				int byteSize;
-				int fileavailable = bufferIn.available();
+				int fileavailable = file.available();
 				for(int i= 0; fileavailable > 0; i++ ) {
 					if (fileavailable > Message.CHUNK_MAX_SIZE)
 						byteSize = Message.CHUNK_MAX_SIZE;
@@ -76,14 +74,22 @@ public class InitiatorPeer implements Runnable {
 					Chunk chunk = new Chunk(i, byteSize);
 					chunks.add(chunk);
 
-					bufferIn.read(chunk.getData());
+					file.read(chunk.getData());
 
-					for (int j = 0; j < chunks.size(); j++) {
-						sendChunk(fs.getReplicationDegree(), fs.getFileID(), server.returnPeerID(), fs.getChunkID(), chunks.get(j).getData(), 0);
-						fs.incChunkID();
+					fileavailable = file.available();
+				}
+					file.close();
+
+				for (int j = 0; j < chunks.size(); j++) {
+					System.out.print(chunks.size()+("asddddddddddddddddddddddddddddddddddddddddddddddd"));
+					sendChunk(fs.getReplicationDegree(), fs.getFileID(), server.returnPeerID(), fs.getChunkID(), chunks.get(j).getData(), 1);
+					try{
+
+						Thread.sleep(1000);
+					}catch(InterruptedException ex){
+						//do stuff
 					}
-
-					fileavailable = bufferIn.available();
+					fs.incChunkID();
 				}
 
 
