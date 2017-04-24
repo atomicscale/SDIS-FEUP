@@ -59,6 +59,7 @@ private EnumMap<Elems, String> elems;
         
     }
 
+
     public byte[] getMessage(){
         return message;
     }

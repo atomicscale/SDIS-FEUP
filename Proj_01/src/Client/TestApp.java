@@ -35,7 +35,7 @@ public class TestApp {
 			switch (args[1].toLowerCase()) {
 			case "backup":
 				File file = new File(args[2]);
-				//removi temporariamente a verificaçao
+				//removi temporariamente a verificaï¿½ao
 			/*	if (!file.exists() || file.isDirectory() || argsize != 4) {
 					return false;
 				} else*/
@@ -47,7 +47,7 @@ public class TestApp {
 				break;
 			case "delete":
 				if (argsize != 3) {
-					return false;
+					return true;
 				}
 				break;
 			case "reclaim":
