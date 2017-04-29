@@ -87,6 +87,11 @@ private EnumMap<Elems, String> elems;
 
         return elems.get(Elems.CHUNKNO);
     }
+
+	public String returnFileID() {
+
+		return elems.get(Elems.FILEID);
+	}
     
     public void setBody(byte[] body) {
 

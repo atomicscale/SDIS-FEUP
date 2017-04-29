@@ -25,7 +25,7 @@ public class Delete implements Runnable{
         return this.server;
     }
 
-    public void DeleteChunks(String folder){
+    public void DeleteChunks(String folder, String fileId){
         File file = new File(folder);
         String[] files = file.list();
 
@@ -34,8 +34,10 @@ public class Delete implements Runnable{
     }
 
     public void HandleMessage(){
+        Message m = new Message(this.packet);
+        String fileId = m.returnChunkNo();
         String folder = "chunks";
-        DeleteChunks(folder);
+        DeleteChunks(folder,fileId);
     }
 
     public void Delete(){
