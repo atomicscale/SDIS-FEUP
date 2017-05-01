@@ -20,24 +20,24 @@ public class BackupChannel extends Channel {
 		while(true){
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
-				socket.receive(packet);
-				//System.out.println(new String(packet.getData()));
-				
+				socket.receive(packet);				
 			}
 			catch (IOException e) {
 				e.printStackTrace();
 			}
 			Message mR= new Message(packet);
-		/*	if(mR.returnSenderID().equals(server.returnPeerID())){
+
+			if(mR.returnSenderID().equals(server.returnPeerID())){
 				System.out.println("sameID");
 			}
-			else{*/
+			else{
 				new Thread(new Backup(packet,server)).start();
-		//	}
 		}
 		
 	}
 
 
 
+	}
+	
 }
