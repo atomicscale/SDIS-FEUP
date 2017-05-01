@@ -15,11 +15,21 @@ public class BackupChannel extends Channel {
 		// Auto-generated constructor stub
 	}
 	@Override
-	public void run(){
+	public void run() {
 
-		while(true){
+		while (true) {
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
+<<<<<<< HEAD
+				socket.receive(packet);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Message mR = new Message(packet);
+
+			if (mR.returnSenderID().equals(server.returnPeerID())) {
+=======
 				socket.receive(packet);				
 			}
 			catch (IOException e) {
@@ -28,15 +38,22 @@ public class BackupChannel extends Channel {
 			Message mR= new Message(packet);
 
 			if(mR.returnSenderID().equals(server.returnPeerID())){
+>>>>>>> 386eac104f3d236a25d134ad97c74d0fa22c1fd0
 				System.out.println("sameID");
+			} else {
+				new Thread(new Backup(packet, server)).start();
+
 			}
+<<<<<<< HEAD
+
+=======
 			else{
 				new Thread(new Backup(packet,server)).start();
+>>>>>>> 386eac104f3d236a25d134ad97c74d0fa22c1fd0
 		}
-		
+
+
 	}
-
-
 
 	}
 	
