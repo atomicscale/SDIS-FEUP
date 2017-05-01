@@ -48,6 +48,7 @@ public class Backup implements Runnable{
         }
         
         public void HandleMessage(){
+
         	Message m = new Message(this.packet);
         	byte[] content = new byte[64000];
 			content=m.getBody();

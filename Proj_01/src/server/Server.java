@@ -145,7 +145,7 @@ public class Server implements IntServer {
 	@Override
 	public void delete(File file) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
-    
+
 }

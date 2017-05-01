@@ -59,6 +59,15 @@ private EnumMap<Elems, String> elems;
         
     }
 
+	public Message(String messageType, String version, String senderId, String fileId){
+		elems = new EnumMap<Elems, String>(Elems.class);
+
+		elems.put(Elems.TYPE, messageType);
+		elems.put(Elems.VERSION, version);
+		elems.put(Elems.SENDERID, senderId);
+		elems.put(Elems.FILEID, fileId);
+	}
+
 
     public byte[] getMessage(){
         return message;

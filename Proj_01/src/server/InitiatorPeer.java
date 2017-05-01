@@ -84,8 +84,8 @@ public class InitiatorPeer implements Runnable {
 
 				for (int j = 0; j < chunks.size(); j++) {
 					for (int z = 0; z < count;) {
-						System.out.print(chunks.size() + ("asddddddddddddddddddddddddddddddddddddddddddddddd"));
 						sendChunk(fs.getReplicationDegree(), fs.getFileID(), server.returnPeerID(), fs.getChunkID(), chunks.get(j).getData(), 1);
+						System.out.println(count);
 						try {
 
 							Thread.sleep(1000);
