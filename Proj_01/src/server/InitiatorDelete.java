@@ -10,17 +10,7 @@ public class InitiatorDelete implements Runnable{
 	private Server server;
 	private String filePath;
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		if (server.returnManager().checkFile(filePath)) {
-			File f = new File(filePath);
-			FileSet fs = new FileSet(f, 0);
 
-			SendDeleteMessage(fs.getFileID(),server.returnPeerID());
-		}
-	}
-	
 	public InitiatorDelete(Server server, String file) {
 		this.server = server;
 		this.filePath = file;
@@ -32,7 +22,20 @@ public class InitiatorDelete implements Runnable{
 		m.setBody(null);
 		byte[] packet = m.setFullMessage();
 		server.getControl().sendData(packet);
+
 	}
-	
-	
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		System.out.println("fora");
+		if (server.returnManager().checkFile(filePath)) {
+			File f = new File(filePath);
+			FileSet fs = new FileSet(f, 0);
+			System.out.println("dentro");
+			SendDeleteMessage(fs.getFileID(),server.returnPeerID());
+		}
+	}
+
+
 }

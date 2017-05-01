@@ -27,10 +27,10 @@ public class BackupChannel extends Channel {
 			}
 			Message mR= new Message(packet);
 
-			if(mR.returnSenderID().equals(server.returnPeerID())){
+			/*if(mR.returnSenderID().equals(server.returnPeerID())){
 				System.out.println("sameID");
 			}
-			else{
+			else{*/
 				new Thread(new Backup(packet,server)).start();
 		}
 		
@@ -40,4 +40,4 @@ public class BackupChannel extends Channel {
 
 	}
 	
-}
+//}

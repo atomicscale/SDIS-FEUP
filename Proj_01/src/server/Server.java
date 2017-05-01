@@ -61,7 +61,7 @@ public class Server implements IntServer {
     
     public void delete(String file) throws IOException{
     	System.out.println("Delete Started");
-    	new Thread(new InitiatorDelete(this, file));
+    	new Thread(new InitiatorDelete(this, file)).start();
     }
     
     public void reclaim(int space) throws IOException{

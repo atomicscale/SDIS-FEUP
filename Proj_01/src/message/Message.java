@@ -141,12 +141,21 @@ private EnumMap<Elems, String> elems;
 	
 	public byte[] setFullMessage(){
 		byte[] header = this.header.getBytes();
-		byte[] fullMessage = new byte[header.length + this.body.length];
-		
-		
-	    System.arraycopy(header, 0, fullMessage, 0, header.length);
-	    System.arraycopy(this.body, 0, fullMessage, header.length, this.body.length);
-	    
-	    return fullMessage;
+
+		if (this.body!=null) {
+			byte[] fullMessage = new byte[header.length + this.body.length];
+
+
+			System.arraycopy(header, 0, fullMessage, 0, header.length);
+			System.arraycopy(this.body, 0, fullMessage, header.length, this.body.length);
+
+			return fullMessage;
+		}
+		else{
+			byte[] fullMessage = new byte[header.length];
+			System.arraycopy(header, 0, fullMessage, 0, header.length);
+
+			return fullMessage;
+		}
 	}
 }

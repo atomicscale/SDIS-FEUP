@@ -1,9 +1,11 @@
 package subprotocols;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 
 import server.Server;
 import message.Message;
+
 
 import java.io.File;
 
@@ -25,19 +27,43 @@ public class Delete implements Runnable{
         return this.server;
     }
 
-    public void DeleteChunks(String folder, String fileId){
-        File file = new File(folder);
-        String[] files = file.list();
+    public void DeleteChunks(File file, String fileId) {
+        if(file.isDirectory()){
 
-        if (file.isDirectory() && (files.length > 0))
-                file.delete();
+            //directory is empty
+            if(file.list().length==0){
+
+                System.out.println("Directory is empty : "
+                        + file.getAbsolutePath());
+
+            }else{
+
+                //list all the directory contents
+                String files[] = file.list();
+
+                for (String temp : files) {
+                    //construct the file structure
+                    File fileDelete = new File(file, temp);
+
+                    //recursive delete
+                    DeleteChunks(fileDelete,fileId);
+                }
+
+            }
+
+        }else{
+            //if file, then delete it
+            file.delete();
+            System.out.println("File is deleted : " + file.getAbsolutePath());
+        }
     }
 
     public void HandleMessage(){
         Message m = new Message(this.packet);
         String fileId = m.returnChunkNo();
         String folder = "chunks";
-        DeleteChunks(folder,fileId);
+        File file = new File(folder);
+        DeleteChunks(file,fileId);
     }
 
     public void Delete(){

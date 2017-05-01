@@ -46,10 +46,7 @@ public class TestApp {
 				}
 				break;
 			case "delete":
-				if (argsize != 3) {
 					return true;
-				}
-				break;
 			case "reclaim":
 				if (argsize != 3) {
 					return false;
