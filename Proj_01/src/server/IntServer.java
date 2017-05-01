@@ -11,7 +11,7 @@ public interface IntServer extends Remote {
 
 	void restore(File file) throws IOException;
 
-	void delete(File file) throws IOException;
+	void delete(String file) throws IOException;
 
 	void reclaim(int space) throws IOException;
 

@@ -71,8 +71,8 @@ public class TestApp {
 		try {
 			Registry registry = LocateRegistry.getRegistry();
 			server = (IntServer) registry.lookup(lookup);
-			String awnser = server.sayHello(); //this is for testing
-			System.out.println("Awnser: " + awnser);//this is for testing
+			//String awnser = server.sayHello(); //this is for testing
+			//System.out.println("Awnser: " + awnser);//this is for testing
 		} catch (Exception e) {
 			System.err.println("Client exception: " + e.toString());
 			e.printStackTrace();
@@ -91,8 +91,8 @@ public class TestApp {
 			server.restore(r);
 			break;	
 		case "delete":
-			File d = new File(args[2]);
-			server.delete(d);
+		//	File d = new File(args[2]);
+			server.delete(args[2]);
 			break;
 		case "reclaim":
 			server.reclaim(Integer.parseInt(args[2]));

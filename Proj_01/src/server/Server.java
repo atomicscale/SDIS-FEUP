@@ -60,6 +60,7 @@ public class Server implements IntServer {
     }
     
     public void delete(String file) throws IOException{
+    	System.out.println("Delete Started");
     	new Thread(new InitiatorDelete(this, file));
     }
     
@@ -142,10 +143,5 @@ public class Server implements IntServer {
     	return manager;
     }
 
-	@Override
-	public void delete(File file) throws IOException {
-		// TODO Auto-generated method stub
-
-	}
 
 }
