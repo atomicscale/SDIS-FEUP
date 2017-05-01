@@ -28,12 +28,12 @@ public class Backup implements Runnable{
             return this.server;
         }
 
-        public boolean SaveChunk(byte[]content,String chunkID,String folder){
+        public boolean SaveChunk(byte[]content,String chunkID,String fileID, String folder){
         	int foo = Integer.parseInt(chunkID);
         	
         	File newFile = new File(folder,String.format("%06d", foo));
         	try {
-        		FileOutputStream out = new FileOutputStream(newFile);
+        		FileOutputStream out = new FileOutputStream(newFile + "." + fileID);
         		out.write(content, 0, content.length);
         		out.close();
         	} catch (Exception e) {
@@ -52,8 +52,9 @@ public class Backup implements Runnable{
         	byte[] content = new byte[64000];
 			content=m.getBody();
         	String chunkID = m.returnChunkNo();
+        	String fileID = m.returnFileID();
         	String folder = "chunks";
-        	SaveChunk(content,chunkID,folder);
+        	SaveChunk(content,chunkID, fileID, folder);
         }
         
 		@Override
