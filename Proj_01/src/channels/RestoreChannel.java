@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
+import message.Message;
 import server.Server;
 import subprotocols.Backup;
+import subprotocols.Restore;
 
 public class RestoreChannel extends Channel {
 	private byte[] buffer = new byte[65000];
@@ -24,11 +26,17 @@ public class RestoreChannel extends Channel {
 			catch (IOException e) {
 				e.printStackTrace();
 			}
-		//	new Thread (new Backup(null, port)).start();
+			Message mR= new Message(packet);
+
+			if(mR.returnSenderID().equals(server.returnPeerID())){
+				System.out.println("sameID");
+			}
+			else{
+				new Thread(new Restore(packet,server)).start();
 		}
 		
 	}
 	
-	
+	}	
 
 }
