@@ -53,14 +53,22 @@ public class Delete implements Runnable{
 
         }else{
             //if file, then delete it
-            file.delete();
-            System.out.println("File is deleted : " + file.getAbsolutePath());
+            String name = file.getName();
+
+            int index = name.indexOf('.');
+            String lastPart = name.substring(index+1, name.length());
+
+
+            if (lastPart.equals(fileId)) {
+                file.delete();
+                System.out.println("File is deleted : " + file.getAbsolutePath());
+            }
         }
     }
 
     public void HandleMessage(){
         Message m = new Message(this.packet);
-        String fileId = m.returnChunkNo();
+        String fileId = m.returnFileID();
         String folder = "chunks";
         File file = new File(folder);
         DeleteChunks(file,fileId);
